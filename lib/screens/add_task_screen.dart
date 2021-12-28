@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
   // const AddTaskScreen({ Key? key }) : super(key: key);
+  late final Function addTaskCallback;
+  late String newTaskTitle;
+
+  AddTaskScreen(this.addTaskCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +49,9 @@ class AddTaskScreen extends StatelessWidget {
                             // labelText: 'Enter Task',
                             hintText: 'Enter Task'),
                         autofocus: true,
+                        onChanged: (newText) {
+                          newTaskTitle = newText;
+                        },
                       ),
                     ),
                   ),
@@ -58,7 +65,12 @@ class AddTaskScreen extends StatelessWidget {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  addTaskCallback(newTaskTitle);
+                  Navigator.pop(context);
+                  // addTaskCallback(newTaskTitle);
+                  // print(newTaskTitle);
+                },
                 child: Center(
                     child: Text(
                   "Add",
