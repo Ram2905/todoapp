@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/widgets/tasks_tile.dart';
 import "package:todoapp/models/task.dart";
 import "package:todoapp/screens/add_task_screen.dart";
+import 'package:todoapp/models/task_data.dart';
 
-class TasksList extends StatefulWidget {
-  late final List<Task> tasks;
+class TasksList extends StatelessWidget {
+  // late final List<Task> tasks;
 
-  TasksList({required this.tasks});
+  // TasksList({required this.tasks});
 
-  @override
-  State<TasksList> createState() => _TasksListState();
-}
-
-class _TasksListState extends State<TasksList> {
   // List<Task> tasks = [
   //   Task(name: "Buy Bags"),
   //   Task(name: "Buy Eggs"),
@@ -22,19 +19,25 @@ class _TasksListState extends State<TasksList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: widget.tasks.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TaskTile(
-            taskTitle: widget.tasks[index].name,
-            isChecked: widget.tasks[index].isDone,
-            checkBoxCallback: (checkBoxState) {
-              setState(() {
-                widget.tasks[index].toggleDone(); //= checkBoxState ?? true;
-              });
-            },
-          );
-        });
+    return Consumer<TaskData>(
+      builder: (context, taskData, child) {
+        return ListView.builder(
+            itemCount: taskData.taskCount, //widget.tasks.length,
+            itemBuilder: (BuildContext context, int index) {
+              return TaskTile(
+                taskTitle: taskData.tasks[index].name,
+                isChecked: taskData.tasks[index].isDone,
+                checkBoxCallback: (checkBoxState) {
+                  // setState(() {
+                  //   Provider.of<TaskData>(context)
+                  //       .tasks[index]
+                  //       .toggleDone(); //= checkBoxState ?? true;
+                  // });
+                },
+              );
+            });
+      },
+    );
     // ListView(
     //   children: [
     //     // TaskTile(taskTitle: tasks[0].name, isChecked: tasks[0].isDone),

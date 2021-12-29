@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/models/task.dart';
+import 'package:todoapp/models/task_data.dart';
 import 'package:todoapp/widgets/tasks_list.dart';
 import 'add_task_screen.dart';
 
@@ -12,20 +14,22 @@ class TasksScreen extends StatefulWidget {
 
 class _TasksScreenState extends State<TasksScreen> {
   bool _value = false;
-  List<Task> tasks = [
-    Task(name: "Buy Bags"),
-    Task(name: "Buy Eggs"),
-    Task(name: "Buy hen"),
-    Task(name: "Buy app"),
-  ];
+  // List<Task> tasks = [
+  //   Task(name: "Buy Bags"),
+  //   Task(name: "Buy Eggs"),
+  //   Task(name: "Buy hen"),
+  //   Task(name: "Buy app"),
+  // ];
 
   Widget buildBottomSheet(BuildContext context) {
-    return AddTaskScreen((newTaskTitle) {
-      // print(newTaskTitle);
-      setState(() {
-        tasks.add(Task(name: newTaskTitle));
-      });
-    });
+    return AddTaskScreen(
+        //   (newTaskTitle) {
+        //   print(newTaskTitle);
+        //   setState(() {
+        //     Provider.of<TaskData>(context).tasks.add(Task(name: newTaskTitle));
+        //   });
+        // }
+        );
   }
 
   @override
@@ -77,7 +81,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  "${tasks.length} Tasks",
+                  "${Provider.of<TaskData>(context).taskCount} Tasks",
                   style: TextStyle(color: Colors.white, fontSize: 16.0),
                 ),
               ],
@@ -97,8 +101,8 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
               child: Expanded(
                 child: TasksList(
-                  tasks: tasks,
-                ),
+                    //tasks: Provider.of<TaskData>(context).tasks,
+                    ),
               ),
             ),
           )
