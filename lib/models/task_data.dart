@@ -27,4 +27,16 @@ class TaskData extends ChangeNotifier {
     _tasks.add(task);
     notifyListeners();
   }
+
+//update task for instead of set state for chkbox
+  void updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
+  }
+
+//delete task from list
+  void deleteTask(Task task) {
+    _tasks.remove(task);
+    notifyListeners();
+  }
 }
